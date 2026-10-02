@@ -1,0 +1,117 @@
+{
+"header": {
+"season": "Winter",
+"year": 2026,
+"generated": "2026-01-05T02:32:48"
+},
+"lines": [
+{
+"page": 16,
+"top": 388.5,
+"words": [
+{
+"text": "MECH-8970",
+"x0": 72.0,
+"top": 388.5,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "(-)",
+"x0": 129.8,
+"top": 388.5,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Thesis",
+"x0": 200.6,
+"top": 388.5,
+"font": "Helvetica-Bold",
+"size": 10.0
+}
+]
+},
+{
+"page": 16,
+"top": 399.8,
+"words": [
+{
+"text": "2026-",
+"x0": 360.9,
+"top": 399.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 401.4,
+"top": 399.8,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 16,
+"top": 404.4,
+"words": [
+{
+"text": "Section",
+"x0": 72.0,
+"top": 404.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "1",
+"x0": 100.9,
+"top": 404.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "18.00",
+"x0": 162.4,
+"top": 404.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "LEC",
+"x0": 197.9,
+"top": 404.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "F",
+"x0": 226.2,
+"top": 404.4,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 16,
+"top": 409.0,
+"words": [
+{
+"text": "01-05",
+"x0": 360.9,
+"top": 409.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "04-06",
+"x0": 401.4,
+"top": 409.0,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+}
+]
+}

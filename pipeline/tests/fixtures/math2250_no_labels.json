@@ -1,0 +1,267 @@
+{
+"header": {
+"season": "Fall",
+"year": 2026,
+"generated": "2026-09-28T02:30:22"
+},
+"lines": [
+{
+"page": 60,
+"top": 636.9,
+"words": [
+{
+"text": "MATH-2250",
+"x0": 72.0,
+"top": 636.9,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "(-)",
+"x0": 129.2,
+"top": 636.9,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Linear",
+"x0": 200.6,
+"top": 636.9,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Algebra",
+"x0": 233.4,
+"top": 636.9,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "II",
+"x0": 273.4,
+"top": 636.9,
+"font": "Helvetica-Bold",
+"size": 10.0
+}
+]
+},
+{
+"page": 60,
+"top": 648.2,
+"words": [
+{
+"text": "12:50",
+"x0": 318.4,
+"top": 648.2,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 360.9,
+"top": 648.2,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 401.4,
+"top": 648.2,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 60,
+"top": 652.8,
+"words": [
+{
+"text": "TTH",
+"x0": 226.2,
+"top": 652.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "11:30",
+"x0": 268.8,
+"top": 652.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "AM",
+"x0": 291.0,
+"top": 652.8,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 60,
+"top": 657.4,
+"words": [
+{
+"text": "PM",
+"x0": 318.4,
+"top": 657.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "09-10",
+"x0": 360.9,
+"top": 657.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "12-09",
+"x0": 401.4,
+"top": 657.4,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 60,
+"top": 678.8,
+"words": [
+{
+"text": "MATH-2250",
+"x0": 72.0,
+"top": 678.8,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "(-)",
+"x0": 129.2,
+"top": 678.8,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Laboratory",
+"x0": 200.6,
+"top": 678.8,
+"font": "Helvetica-Bold",
+"size": 10.0
+}
+]
+},
+{
+"page": 60,
+"top": 690.1,
+"words": [
+{
+"text": "01:20",
+"x0": 318.4,
+"top": 690.1,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 360.9,
+"top": 690.1,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 401.4,
+"top": 690.1,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 60,
+"top": 694.7,
+"words": [
+{
+"text": "Section",
+"x0": 72.0,
+"top": 694.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "51",
+"x0": 100.9,
+"top": 694.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "3.00",
+"x0": 162.4,
+"top": 694.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "LAB",
+"x0": 197.9,
+"top": 694.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "F",
+"x0": 226.2,
+"top": 694.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "12:30",
+"x0": 268.8,
+"top": 694.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "PM",
+"x0": 291.0,
+"top": 694.7,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 60,
+"top": 699.4,
+"words": [
+{
+"text": "PM",
+"x0": 318.4,
+"top": 699.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "09-10",
+"x0": 360.9,
+"top": 699.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "12-09",
+"x0": 401.4,
+"top": 699.4,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+}
+]
+}

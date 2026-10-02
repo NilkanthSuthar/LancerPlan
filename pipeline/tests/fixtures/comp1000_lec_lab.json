@@ -1,0 +1,751 @@
+{
+"header": {
+"season": "Fall",
+"year": 2026,
+"generated": "2026-09-28T02:30:22"
+},
+"lines": [
+{
+"page": 49,
+"top": 573.0,
+"words": [
+{
+"text": "Computer",
+"x0": 72.0,
+"top": 573.0,
+"font": "Helvetica-Bold",
+"size": 11.0
+},
+{
+"text": "Science",
+"x0": 127.0,
+"top": 573.0,
+"font": "Helvetica-Bold",
+"size": 11.0
+}
+]
+},
+{
+"page": 49,
+"top": 597.5,
+"words": [
+{
+"text": "COMP-1000",
+"x0": 72.0,
+"top": 597.5,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "(-)",
+"x0": 130.4,
+"top": 597.5,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Key",
+"x0": 200.6,
+"top": 597.5,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Concepts",
+"x0": 221.7,
+"top": 597.5,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "in",
+"x0": 270.1,
+"top": 597.5,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Computer",
+"x0": 281.7,
+"top": 597.5,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Scie",
+"x0": 331.7,
+"top": 597.5,
+"font": "Helvetica-Bold",
+"size": 10.0
+}
+]
+},
+{
+"page": 49,
+"top": 608.8,
+"words": [
+{
+"text": "09:50",
+"x0": 318.4,
+"top": 608.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 360.9,
+"top": 608.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 401.4,
+"top": 608.8,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 613.4,
+"words": [
+{
+"text": "Section",
+"x0": 72.0,
+"top": 613.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "1",
+"x0": 100.9,
+"top": 613.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "Full",
+"x0": 107.6,
+"top": 613.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "3.00",
+"x0": 162.4,
+"top": 613.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "LEC",
+"x0": 197.9,
+"top": 613.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "TTH",
+"x0": 226.2,
+"top": 613.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "08:30",
+"x0": 268.8,
+"top": 613.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "AM",
+"x0": 291.0,
+"top": 613.4,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 618.0,
+"words": [
+{
+"text": "AM",
+"x0": 318.4,
+"top": 618.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "09-10",
+"x0": 360.9,
+"top": 618.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "12-09",
+"x0": 401.4,
+"top": 618.0,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 639.4,
+"words": [
+{
+"text": "COMP-1000",
+"x0": 72.0,
+"top": 639.4,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "(-)",
+"x0": 130.4,
+"top": 639.4,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Laboratory",
+"x0": 200.6,
+"top": 639.4,
+"font": "Helvetica-Bold",
+"size": 10.0
+}
+]
+},
+{
+"page": 49,
+"top": 650.7,
+"words": [
+{
+"text": "05:20",
+"x0": 318.4,
+"top": 650.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 360.9,
+"top": 650.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 401.4,
+"top": 650.7,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 655.3,
+"words": [
+{
+"text": "Section",
+"x0": 72.0,
+"top": 655.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "51",
+"x0": 100.9,
+"top": 655.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "Full",
+"x0": 112.0,
+"top": 655.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "LAB",
+"x0": 197.9,
+"top": 655.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "T",
+"x0": 226.2,
+"top": 655.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "04:00",
+"x0": 268.8,
+"top": 655.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "PM",
+"x0": 291.0,
+"top": 655.3,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 660.0,
+"words": [
+{
+"text": "PM",
+"x0": 318.4,
+"top": 660.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "09-10",
+"x0": 360.9,
+"top": 660.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "12-09",
+"x0": 401.4,
+"top": 660.0,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 669.2,
+"words": [
+{
+"text": "05:20",
+"x0": 318.4,
+"top": 669.2,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 360.9,
+"top": 669.2,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 401.4,
+"top": 669.2,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 673.8,
+"words": [
+{
+"text": "Section",
+"x0": 72.0,
+"top": 673.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "52",
+"x0": 100.9,
+"top": 673.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "Full",
+"x0": 112.0,
+"top": 673.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "LAB",
+"x0": 197.9,
+"top": 673.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "TH",
+"x0": 226.2,
+"top": 673.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "04:00",
+"x0": 268.8,
+"top": 673.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "PM",
+"x0": 291.0,
+"top": 673.8,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 678.5,
+"words": [
+{
+"text": "PM",
+"x0": 318.4,
+"top": 678.5,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "09-10",
+"x0": 360.9,
+"top": 678.5,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "12-09",
+"x0": 401.4,
+"top": 678.5,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 687.7,
+"words": [
+{
+"text": "08:20",
+"x0": 318.4,
+"top": 687.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 360.9,
+"top": 687.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 401.4,
+"top": 687.7,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 692.3,
+"words": [
+{
+"text": "Section",
+"x0": 72.0,
+"top": 692.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "53",
+"x0": 100.9,
+"top": 692.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "LAB",
+"x0": 197.9,
+"top": 692.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "T",
+"x0": 226.2,
+"top": 692.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "07:00",
+"x0": 268.8,
+"top": 692.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "PM",
+"x0": 291.0,
+"top": 692.3,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 49,
+"top": 697.0,
+"words": [
+{
+"text": "PM",
+"x0": 318.4,
+"top": 697.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "09-10",
+"x0": 360.9,
+"top": 697.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "12-09",
+"x0": 401.4,
+"top": 697.0,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 50,
+"top": 122.6,
+"words": [
+{
+"text": "08:20",
+"x0": 318.4,
+"top": 122.6,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 360.9,
+"top": 122.6,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 401.4,
+"top": 122.6,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 50,
+"top": 127.2,
+"words": [
+{
+"text": "Section",
+"x0": 72.0,
+"top": 127.2,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "54",
+"x0": 100.9,
+"top": 127.2,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "LAB",
+"x0": 197.9,
+"top": 127.2,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "TH",
+"x0": 226.2,
+"top": 127.2,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "07:00",
+"x0": 268.8,
+"top": 127.2,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "PM",
+"x0": 291.0,
+"top": 127.2,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 50,
+"top": 131.8,
+"words": [
+{
+"text": "PM",
+"x0": 318.4,
+"top": 131.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "09-10",
+"x0": 360.9,
+"top": 131.8,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "12-09",
+"x0": 401.4,
+"top": 131.8,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 50,
+"top": 141.1,
+"words": [
+{
+"text": "09:50",
+"x0": 318.4,
+"top": 141.1,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 360.9,
+"top": 141.1,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 401.4,
+"top": 141.1,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 50,
+"top": 145.7,
+"words": [
+{
+"text": "Section",
+"x0": 72.0,
+"top": 145.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "55",
+"x0": 100.9,
+"top": 145.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "LAB",
+"x0": 197.9,
+"top": 145.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "TH",
+"x0": 226.2,
+"top": 145.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "08:30",
+"x0": 268.8,
+"top": 145.7,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "PM",
+"x0": 291.0,
+"top": 145.7,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 50,
+"top": 150.3,
+"words": [
+{
+"text": "PM",
+"x0": 318.4,
+"top": 150.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "09-10",
+"x0": 360.9,
+"top": 150.3,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "12-09",
+"x0": 401.4,
+"top": 150.3,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+}
+]
+}

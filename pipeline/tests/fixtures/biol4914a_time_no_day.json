@@ -1,0 +1,159 @@
+{
+"header": {
+"season": "Fall",
+"year": 2026,
+"generated": "2026-09-28T02:30:22"
+},
+"lines": [
+{
+"page": 59,
+"top": 321.1,
+"words": [
+{
+"text": "BIOL-4914A",
+"x0": 72.0,
+"top": 321.1,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "(-)",
+"x0": 131.5,
+"top": 321.1,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Undergrad",
+"x0": 200.6,
+"top": 321.1,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Research",
+"x0": 253.9,
+"top": 321.1,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "in",
+"x0": 301.7,
+"top": 321.1,
+"font": "Helvetica-Bold",
+"size": 10.0
+},
+{
+"text": "Biology",
+"x0": 313.4,
+"top": 321.1,
+"font": "Helvetica-Bold",
+"size": 10.0
+}
+]
+},
+{
+"page": 59,
+"top": 332.4,
+"words": [
+{
+"text": "06:00",
+"x0": 318.4,
+"top": 332.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 360.9,
+"top": 332.4,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "2026-",
+"x0": 401.4,
+"top": 332.4,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 59,
+"top": 337.0,
+"words": [
+{
+"text": "Section",
+"x0": 72.0,
+"top": 337.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "1",
+"x0": 100.9,
+"top": 337.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "3.00",
+"x0": 162.4,
+"top": 337.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "LEC",
+"x0": 197.9,
+"top": 337.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "04:00",
+"x0": 268.8,
+"top": 337.0,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "PM",
+"x0": 291.0,
+"top": 337.0,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+},
+{
+"page": 59,
+"top": 341.6,
+"words": [
+{
+"text": "PM",
+"x0": 318.4,
+"top": 341.6,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "09-10",
+"x0": 360.9,
+"top": 341.6,
+"font": "Helvetica",
+"size": 8.0
+},
+{
+"text": "12-09",
+"x0": 401.4,
+"top": 341.6,
+"font": "Helvetica",
+"size": 8.0
+}
+]
+}
+]
+}
