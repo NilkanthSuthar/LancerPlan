@@ -37,7 +37,7 @@ export const app = {
       storage.set(planKey(this.termId), encodeCourses(courses));
       if (this.shared) {
         this.shared = false;
-        toast('Saved as your plan');
+        toast('Saved as your plan.');
       }
     }
     history.replaceState(null, '', this.link(this.path));
@@ -55,7 +55,7 @@ export const app = {
       if (comp.sections.length === 1) picks[comp.type] = comp.sections[0].key;
     }
     this.setCourses([...this.courses, { code, picks }]);
-    toast(`Added ${code}`);
+    toast(`Added ${code}.`);
   },
   removeCourse(code) {
     this.setCourses(this.courses.filter((c) => c.code !== code));
@@ -92,8 +92,8 @@ async function route() {
     try {
       app.term = await loadTerm(termId);
     } catch (e) {
-      clear(view).append(h('div', { class: 'card error' }, h('h2', null, 'Couldn’t load the timetable'),
-        h('p', null, String(e.message)), h('p', null, 'Check your connection and reload the page.')));
+      clear(view).append(h('div', { class: 'empty' }, h('h1', null, 'Couldn’t load the timetable.'),
+        h('p', null, `${e.message}. Check your connection and reload.`)));
       return;
     }
     view.removeAttribute('aria-busy');
@@ -146,7 +146,7 @@ function render() {
   else if (page === 'generate') renderGenerate(view, app);
   else if (page === 'about') renderAbout(view, app);
   else {
-    view.append(h('div', { class: 'card' }, h('h2', null, 'Not found'),
+    view.append(h('div', { class: 'empty' }, h('h1', null, 'Not found.'),
       h('p', null, arg ? `${arg} isn’t in the ${app.term.label} timetable.` : 'That page doesn’t exist.'),
       h('p', null, h('a', { href: app.link([]) }, 'Search courses'))));
   }
@@ -160,7 +160,7 @@ function titleFor(page, arg) {
   if (page === 'plan') return `My ${app.term.label} plan · ${base}`;
   if (page === 'generate') return `Generate schedules · ${base}`;
   if (page === 'about') return `About · ${base}`;
-  return `${base} · UWindsor timetable planner (unofficial)`;
+  return `${base} · UWindsor timetable planner`;
 }
 
 function updateChrome() {
@@ -186,49 +186,26 @@ function updateChrome() {
   const t = app.term;
   const asof = document.getElementById('asof');
   clear(asof).append(
-    `Timetable data as of ${fmtLongDate(t.generated)} (${t.label}), from the `,
-    h('a', { href: t.registrar, target: '_blank', rel: 'noopener' }, 'Registrar’s timetable page'),
-    '. “Full” was a snapshot at that time. · ',
-    h('a', { href: app.link(['about']) }, 'About & report a mistake'),
+    `Timetable data as of ${fmtLongDate(t.generated)}, from the `,
+    h('a', { href: t.registrar, target: '_blank', rel: 'noopener' }, 'registrar'),
+    '. ',
+    h('a', { href: app.link(['about']) }, 'About'),
   );
 
   const banner = clear(document.getElementById('banner'));
   if (app.shared) {
     banner.append(h('div', { class: 'banner' },
-      h('span', null, 'You’re viewing a shared timetable. Your own saved plan is untouched unless you save this one or change it.'),
-      h('span', { class: 'banner-actions' },
-        h('button', { class: 'btn small primary', type: 'button', onclick: () => { app.setCourses(app.courses); render(); } }, 'Save as my plan'),
-        h('a', { class: 'btn small', href: buildHash(app.path, { term: app.termId, courses: savedCourses(app.termId) }), onclick: () => { app.shared = false; } }, 'Open my plan'))));
+      h('span', null, 'Viewing a shared plan.'),
+      h('button', { type: 'button', onclick: () => { app.setCourses(app.courses); render(); } }, 'Keep it'),
+      h('a', { href: buildHash(app.path, { term: app.termId, courses: savedCourses(app.termId) }), onclick: () => { app.shared = false; } }, 'Back to mine')));
   }
 }
 
-function setupTheme() {
-  const btn = document.getElementById('theme');
-  const modes = ['auto', 'light', 'dark'];
-  const labels = { auto: 'Theme: match device', light: 'Theme: light', dark: 'Theme: dark' };
-  const icons = { auto: '◐', light: '☀', dark: '☾' };
-  let mode = storage.get('lp:theme', 'auto');
-  const apply = () => {
-    if (mode === 'auto') delete document.documentElement.dataset.theme;
-    else document.documentElement.dataset.theme = mode;
-    btn.textContent = icons[mode];
-    btn.title = labels[mode];
-    btn.setAttribute('aria-label', `${labels[mode]} (click to change)`);
-  };
-  btn.addEventListener('click', () => {
-    mode = modes[(modes.indexOf(mode) + 1) % modes.length];
-    storage.set('lp:theme', mode);
-    apply();
-  });
-  apply();
-}
-
 async function start() {
-  setupTheme();
   try {
     app.terms = await loadTerms();
   } catch (e) {
-    clear(view).append(h('div', { class: 'card error' }, h('h2', null, 'Couldn’t load the timetable'), h('p', null, String(e.message))));
+    clear(view).append(h('div', { class: 'empty' }, h('h1', null, 'Couldn’t load the timetable.'), h('p', null, String(e.message))));
     return;
   }
   document.getElementById('term').addEventListener('change', (e) => {

@@ -6,11 +6,11 @@ const BASE = import.meta.env?.BASE_URL ?? '/';
 const cache = new Map();
 
 export const TYPE_NAMES = { LEC: 'Lecture', LAB: 'Lab', TUT: 'Tutorial', PR1: 'Practicum 1', PR2: 'Practicum 2', PRA: 'Practicum' };
-export const LEVEL_NAMES = { ugrd: 'Undergrad', grad: 'Graduate', law: 'Law' };
+export const LEVEL_NAMES = { ugrd: 'Undergrad', grad: 'Grad', law: 'Law' };
 export const FLAG_NOTES = {
-  unlabelled: 'The PDF lists this section’s times without a section number. Find the number in UWinsite.',
-  'number-inferred': 'The PDF lists this section without its label; the number is inferred from the ones around it. Confirm in UWinsite.',
-  'extra-meetings': 'Some of these meeting times appear in the PDF without a section label and were attached to this section. Confirm in UWinsite.',
+  unlabelled: 'No section number in the PDF. Find it in UWinsite.',
+  'number-inferred': 'Section number inferred; the PDF row had no label.',
+  'extra-meetings': 'Includes meeting times the PDF lists without a section label.',
 };
 
 export async function loadTerms() {
@@ -102,11 +102,6 @@ export function findSection(course, key) {
   return null;
 }
 
-export function sectionLabel(section, type) {
-  const name = TYPE_NAMES[type] ?? type;
-  return section.id ? `${name} ${section.id}` : `${name} (no number in PDF)`;
-}
-
 export function meetingText(m) {
   if (m.days) return `${fmtDays(m.days)} ${fmtRange(m.start, m.end)}`;
   if (m.noDays) return `${fmtRange(m.start, m.end)}, day not listed`;
@@ -128,13 +123,11 @@ export function courseCredits(course, picks = {}) {
   return all.length ? Math.max(...all) : 0;
 }
 
+export const TYPE_SHORT = { LEC: 'lec', LAB: 'lab', TUT: 'tut' };
+
 export function componentSummary(course) {
   return course.components
-    .map((c) => {
-      const n = c.sections.length;
-      const name = (TYPE_NAMES[c.type] ?? c.type).toLowerCase();
-      return `${n} ${name}${n === 1 ? '' : name.endsWith('s') ? '' : 's'}`;
-    })
+    .map((c) => `${c.sections.length} ${TYPE_SHORT[c.type] ?? c.type.toLowerCase()}`)
     .join(' · ');
 }
 

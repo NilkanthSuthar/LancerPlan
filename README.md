@@ -30,7 +30,7 @@ Things the PDFs don't give us, or give us oddly:
   consecutively numbered sections they're treated as extra meetings of the
   section above; if they come before the first label or exactly fill a gap in
   the numbering they're treated as their own sections. Either way the section
-  is flagged in the data and shown with a ⚠ in the app.
+  is flagged in the data and marked in the app.
 - Two sections only clash if their days, times **and** date ranges overlap, so
   first-half and second-half courses can share a slot.
 

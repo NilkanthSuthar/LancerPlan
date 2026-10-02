@@ -1,19 +1,22 @@
 import { findClashes, meetingsClash } from '../lib/clash.js';
 import {
-  courseCredits, findSection, FLAG_NOTES, isPartTerm, isTimed, meetingText, sectionLabel, TYPE_NAMES,
+  courseCredits, findSection, FLAG_NOTES, isPartTerm, isTimed, meetingText, TYPE_SHORT,
 } from '../lib/data.js';
 import { buildIcs } from '../lib/ics.js';
 import { addDays, DAY_SHORT, fmtDate, fmtDateRange, fmtRange, mondayOf } from '../lib/time.js';
 import { calendar } from './calendar.js';
-import { h, toast, put } from './dom.js';
+import { h, put, toast } from './dom.js';
+import { sectionList } from './sections.js';
+
+const short = (type) => TYPE_SHORT[type] ?? type.toLowerCase();
 
 /** Chosen sections in plan order: [{code, title, type, section, color}] */
-export function chosenSections(app) {
+export function chosenSections(app, courses = app.courses, picksFor = (c) => c.picks) {
   const out = [];
-  app.courses.forEach((c, i) => {
+  courses.forEach((c, i) => {
     const course = app.term.byCode.get(c.code);
     for (const comp of course.components) {
-      const key = c.picks[comp.type];
+      const key = picksFor(c)?.[comp.type];
       const f = key && findSection(course, key);
       if (f) out.push({ code: c.code, title: course.title, type: comp.type, section: f.section, color: i % 8 });
     }
@@ -33,7 +36,7 @@ export function eventsFor(chosen, term, week = 'all') {
       events.push({
         day, start: m.start, end: m.end, color: ch.color, clash,
         label: ch.code,
-        sub: `${ch.type} ${ch.section.id ?? '?'}`,
+        sub: `${short(ch.type)} ${ch.section.id ?? '?'}`,
         time: fmtRange(m.start, m.end),
         note: isPartTerm(m, term) ? fmtDateRange(m.startDate, m.endDate) : null,
       });
@@ -49,74 +52,69 @@ export function renderPlan(view, app) {
   const credits = app.courses.reduce((sum, c) => sum + courseCredits(term.byCode.get(c.code), c.picks), 0);
   const missing = [];
   for (const c of app.courses) {
-    const course = term.byCode.get(c.code);
-    for (const comp of course.components) if (!c.picks[comp.type]) missing.push({ code: c.code, type: comp.type });
+    for (const comp of term.byCode.get(c.code).components) {
+      if (!c.picks[comp.type]) missing.push(`${c.code} ${short(comp.type)}`);
+    }
   }
 
-  put(view, h('header', { class: 'plan-head' },
-    h('div', null,
-      h('h1', null, `My ${term.label} plan`),
-      h('p', { class: 'stats' },
-        h('span', null, `${app.courses.length} course${app.courses.length === 1 ? '' : 's'}`),
-        h('span', null, `${fmtCredits(credits)} credits`),
-        clashes.length ? h('span', { class: 'bad' }, `${clashes.length} clash${clashes.length === 1 ? '' : 'es'}`) : app.courses.length ? h('span', { class: 'good' }, 'No clashes') : null)),
-    h('div', { class: 'actions' },
-      h('a', { class: 'btn primary', href: app.link(['generate']), 'aria-disabled': app.courses.length ? null : 'true' }, '✨ Generate'),
-      h('button', { type: 'button', class: 'btn', disabled: !app.courses.length, onclick: () => share(app) }, 'Share'),
-      h('button', { type: 'button', class: 'btn', disabled: !chosen.length, onclick: () => exportIcs(app, chosen) }, 'Export .ics'),
-      h('button', {
-        type: 'button', class: 'btn ghost', disabled: !app.courses.length,
-        onclick: () => { if (confirm('Remove every course from this plan?')) { app.setCourses([]); app.render(); } },
-      }, 'Clear'))));
-
   if (!app.courses.length) {
-    put(view, h('div', { class: 'empty card' },
-      h('h2', null, 'No courses yet'),
-      h('p', null, 'Search for your courses and tap + to add them. They’ll show up here on a weekly timetable.'),
-      h('p', null, h('a', { class: 'btn primary', href: app.link([]) }, 'Search courses'))));
+    put(view, h('div', { class: 'empty' },
+      h('h1', null, 'Nothing here yet.'),
+      h('p', null, 'Add courses from search and they’ll land on a weekly timetable.'),
+      h('a', { class: 'btn primary', href: app.link([]) }, 'Search courses')));
     return;
   }
 
+  put(view, h('header', { class: 'plan-head' },
+    h('h1', null, term.label),
+    h('p', { class: 'stats' },
+      `${app.courses.length} course${app.courses.length === 1 ? '' : 's'} · ${fmtCredits(credits)} cr · `,
+      clashes.length ? h('span', { class: 'signal' }, `${clashes.length} clash${clashes.length === 1 ? '' : 'es'}`) : 'no clashes')),
+  h('div', { class: 'actions' },
+    h('a', { class: 'btn primary', href: app.link(['generate']) }, 'Generate'),
+    h('button', { type: 'button', class: 'btn', onclick: () => share(app) }, 'Share'),
+    h('button', { type: 'button', class: 'btn', disabled: !chosen.length, onclick: () => exportIcs(app, chosen) }, 'Export .ics')));
+
   if (clashes.length) {
-    put(view, h('div', { class: 'alert bad', role: 'alert' },
-      h('strong', null, 'Time clashes'),
+    put(view, h('div', { class: 'notice', role: 'alert' },
+      h('b', null, 'Clashes'),
       h('ul', null, clashes.map((c) => h('li', null,
-        `${c.first.code} ${c.first.type} ${c.first.section.id ?? '?'} and ${c.second.code} ${c.second.type} ${c.second.section.id ?? '?'}: `,
-        `${c.days.map((d) => DAY_SHORT[d]).join(', ')} ${fmtRange(c.start, c.end)}`,
-        c.from && c.to ? ` (${fmtDateRange(c.from, c.to)})` : ''))),
-      h('p', { class: 'small' }, 'Pick different sections below or try ', h('a', { href: app.link(['generate']) }, 'Generate'), '.')));
+        `${c.first.code} ${short(c.first.type)} ${c.first.section.id ?? '?'} × ${c.second.code} ${short(c.second.type)} ${c.second.section.id ?? '?'} — `,
+        `${c.days.map((d) => DAY_SHORT[d]).join('/')} ${fmtRange(c.start, c.end)}`,
+        c.from && c.to && (c.from !== term.usual?.[0] || c.to !== term.usual?.[1]) ? `, ${fmtDateRange(c.from, c.to)}` : '')))));
   }
   if (missing.length) {
-    put(view, h('div', { class: 'alert warn' },
-      `Still to pick: ${missing.map((m) => `${m.code} ${(TYPE_NAMES[m.type] ?? m.type).toLowerCase()}`).join(', ')}.`));
+    put(view, h('div', { class: 'notice' }, 'Still to pick: ', h('span', { class: 'mono small' }, missing.join(', '))));
   }
 
-  const layout = h('div', { class: 'plan-layout' });
-  const calWrap = h('section', { class: 'cal-wrap', 'aria-label': 'Weekly timetable' });
+  const calWrap = h('section', { 'aria-label': 'Weekly timetable' });
   const partTerm = chosen.some((ch) => ch.section.meetings.some((m) => m.days && isPartTerm(m, term)));
   if (partTerm && term.firstDate) {
     const weeks = [];
     for (let w = mondayOf(term.firstDate); w <= term.lastDate; w = addDays(w, 7)) weeks.push(w);
-    put(calWrap, h('label', { class: 'week-pick' }, 'Show ',
-      h('select', { onchange: (e) => { app.ui.week = e.target.value; app.render(); } },
-        h('option', { value: 'all', selected: app.ui.week === 'all' }, 'all weeks'),
-        weeks.map((w) => h('option', { value: w, selected: app.ui.week === w }, `week of ${fmtDate(w)}`)))),
-    h('span', { class: 'muted small' }, ' Some sections run for part of the term.'));
+    put(calWrap, h('div', { class: 'week-pick' },
+      h('span', null, 'some sections run part of the term'),
+      h('select', { class: 'plain', 'aria-label': 'Week', onchange: (e) => { app.ui.week = e.target.value; app.render(); } },
+        h('option', { value: 'all', selected: app.ui.week === 'all' }, 'All weeks'),
+        weeks.map((w) => h('option', { value: w, selected: app.ui.week === w }, `Week of ${fmtDate(w)}`)))));
   }
   put(calWrap, calendar(eventsFor(chosen, term, app.ui.week)));
-  put(layout, calWrap);
 
   const side = h('section', { class: 'picks', 'aria-label': 'Courses and sections' });
-  app.courses.forEach((c, i) => put(side, courseCard(app, c, i)));
+  app.courses.forEach((c, i) => put(side, courseBlock(app, c, i)));
   const untimed = untimedItems(chosen);
   if (untimed.length) {
-    put(side, h('div', { class: 'card untimed' },
-      h('h2', null, 'Not on the calendar'),
-      h('p', { class: 'muted small' }, 'Online, co-op, independent study, or no time listed in the PDF.'),
-      h('ul', null, untimed.map((u) => h('li', null, h('b', null, `${u.code} ${u.type} ${u.id ?? '?'}`), ` · ${u.text}`)))));
+    put(side, h('div', { class: 'untimed' },
+      h('h2', null, 'not on the calendar'),
+      h('ul', null, untimed.map((u) => h('li', null, h('b', null, `${u.code} ${short(u.type)} ${u.id ?? '?'}`), ` — ${u.text}`)))));
   }
-  put(layout, side);
-  put(view, layout);
+  put(side, h('div', { class: 'picks-foot' },
+    h('button', {
+      type: 'button', class: 'link-btn',
+      onclick: () => { if (confirm('Remove every course from this plan?')) { app.setCourses([]); app.render(); } },
+    }, 'Clear plan')));
+
+  put(view, h('div', { class: 'plan-layout' }, calWrap, side));
 }
 
 function untimedItems(chosen) {
@@ -127,39 +125,47 @@ function untimedItems(chosen) {
       if (m.days) continue;
       out.push({
         code: ch.code, type: ch.type, id: ch.section.id,
-        text: `${timed ? 'plus a part with no set time' : meetingText(m)}${m.startDate ? `, ${fmtDateRange(m.startDate, m.endDate)}` : ''}`,
+        text: timed ? 'also has a part with no set time' : meetingText(m).toLowerCase(),
       });
     }
   }
   return out;
 }
 
-function courseCard(app, entry, index) {
+function courseBlock(app, entry, index) {
   const course = app.term.byCode.get(entry.code);
   const credits = courseCredits(course, entry.picks);
-  return h('article', { class: `card course-card c${index % 8}` },
-    h('header', null,
-      h('a', { href: app.link(['course', course.code]) }, h('b', null, course.code), ' ', h('span', null, course.title)),
-      h('span', { class: 'muted small' }, credits ? `${fmtCredits(credits)} cr` : ''),
+  return h('article', { class: `pc c${index % 8}` },
+    h('div', { class: 'pc-head' },
+      h('span', { class: 'dot', 'aria-hidden': 'true' }),
+      h('a', { href: app.link(['course', course.code]) }, h('b', null, course.code), course.title),
+      h('span', { class: 'mono small muted' }, credits ? `${fmtCredits(credits)}` : ''),
       h('button', {
-        type: 'button', class: 'icon-btn remove', 'aria-label': `Remove ${course.code}`, title: 'Remove',
+        type: 'button', class: 'x', 'aria-label': `Remove ${course.code}`, title: 'Remove',
         onclick: () => { app.removeCourse(course.code); app.render(); },
       }, '×')),
     course.components.map((comp) => {
+      const id = `${course.code}:${comp.type}`;
+      const open = app.ui.open === id;
       const key = entry.picks[comp.type];
       const picked = key ? findSection(course, key)?.section : null;
-      const id = `pick-${course.code}-${comp.type}`;
-      return h('div', { class: 'pick-row' },
-        h('label', { for: id }, TYPE_NAMES[comp.type] ?? comp.type),
-        h('select', {
-          id, class: key ? '' : 'unpicked',
-          onchange: (e) => { app.pick(course.code, comp.type, e.target.value || null); app.render(); },
+      return [
+        h('button', {
+          type: 'button', class: `line-btn${picked ? '' : ' unpicked'}`, 'aria-expanded': String(open),
+          onclick: () => { app.ui.open = open ? null : id; app.render(); },
         },
-        h('option', { value: '' }, `Choose ${(TYPE_NAMES[comp.type] ?? comp.type).toLowerCase()}…`),
-        comp.sections.map((s) => h('option', { value: s.key, selected: s.key === key },
-          `${s.id ?? '?'} · ${s.meetings.map(meetingText).join(' + ')}${s.full ? ' · Full' : ''}${s.flag ? ' ⚠' : ''}`))),
-        picked?.flag ? h('p', { class: 'sec-flag' }, '⚠ ', FLAG_NOTES[picked.flag]) : null,
-        picked?.full ? h('p', { class: 'muted small' }, `${sectionLabel(picked, comp.type)} was Full when the PDF was made. Seats may have opened since.`) : null);
+        h('span', { class: 'k' }, short(comp.type)),
+        h('span', { class: 'v' }, picked ? (picked.id ?? '?') : 'pick'),
+        h('span', null, picked ? picked.meetings.map(meetingText).join(' + ') : `${comp.sections.length} options`,
+          picked?.full ? h('span', { class: 'tag full' }, ' full') : null),
+        h('span', { class: 'chg' }, open ? 'close' : picked ? 'change' : '')),
+        picked?.flag && !open ? h('p', { class: 'pc-note' }, FLAG_NOTES[picked.flag]) : null,
+        open ? sectionList(app, course, comp, (k) => {
+          app.ui.open = null;
+          app.pick(course.code, comp.type, k);
+          app.render();
+        }) : null,
+      ];
     }));
 }
 
@@ -167,10 +173,9 @@ const fmtCredits = (n) => (Number.isInteger(n) ? String(n) : n.toFixed(2).replac
 
 async function share(app) {
   const url = location.href;
-  const text = `My ${app.term.label} timetable on LancerPlan`;
   if (navigator.share && matchMedia('(pointer: coarse)').matches) {
     try {
-      await navigator.share({ title: text, url });
+      await navigator.share({ title: `${app.term.label} timetable`, url });
       return;
     } catch (e) {
       if (e.name === 'AbortError') return;
@@ -178,16 +183,16 @@ async function share(app) {
   }
   try {
     await navigator.clipboard.writeText(url);
-    toast('Link copied. Paste it anywhere to share this timetable.');
+    toast('Link copied.');
   } catch {
-    prompt('Copy this link to share your timetable:', url);
+    prompt('Copy this link:', url);
   }
 }
 
 function exportIcs(app, chosen) {
   const { text, events } = buildIcs(chosen, { term: app.termId, termLabel: app.term.label });
   if (!events) {
-    toast('Nothing to export: none of your sections have scheduled times.');
+    toast('Nothing to export. No section has a set time.');
     return;
   }
   const blob = new Blob([text], { type: 'text/calendar;charset=utf-8' });
@@ -196,5 +201,6 @@ function exportIcs(app, chosen) {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-  toast(`Exported ${events} weekly event${events === 1 ? '' : 's'}. Open the file to add them to your calendar.`);
+  toast(`${events} weekly event${events === 1 ? '' : 's'} exported. Holidays aren’t excluded.`);
 }
+
