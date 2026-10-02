@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>LancerPlan · UWindsor timetable planner (unofficial)</title>
+    <meta name="description" content="Free, unofficial timetable planner for University of Windsor students. Search courses, pick sections, see clashes, auto-generate schedules, share or export to your calendar. No sign-up." />
+    <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111418" media="(prefers-color-scheme: dark)" />
+    <meta property="og:title" content="LancerPlan: UWindsor timetable planner (unofficial)" />
+    <meta property="og:description" content="Search courses, pick sections, spot clashes, auto-generate a schedule, share it. Free, no sign-up." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f766e'/%3E%3Cpath d='M8 9h4v11h8v3H8z' fill='white'/%3E%3Crect x='17' y='9' width='7' height='3' rx='1' fill='%23fbbf24'/%3E%3Crect x='17' y='14' width='7' height='3' rx='1' fill='%23fbbf24'/%3E%3C/svg%3E" />
+    <script>
+      // apply the saved theme before first paint
+      try {
+        const t = JSON.parse(localStorage.getItem('lp:theme'));
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#view">Skip to content</a>
+    <header class="top">
+      <a class="brand" href="#/" aria-label="LancerPlan home">
+        <span class="logo" aria-hidden="true"></span>
+        <span>LancerPlan</span>
+        <span class="tag">unofficial</span>
+      </a>
+      <label class="term">
+        <span class="sr">Term</span>
+        <select id="term"></select>
+      </label>
+      <nav class="nav" aria-label="Main">
+        <a href="#/" data-nav="search">Search</a>
+        <a href="#/plan" data-nav="plan">My plan <span class="badge" id="plan-count" hidden></span></a>
+        <a href="#/about" data-nav="about">About</a>
+      </nav>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch theme"></button>
+    </header>
+    <div id="banner"></div>
+    <main id="view" tabindex="-1"><p class="loading">Loading timetable…</p></main>
+    <footer class="foot" id="foot">
+      <p>
+        <strong>Unofficial student project.</strong> Not affiliated with or endorsed by the University of Windsor.
+        Always confirm sections in UWinsite before registering.
+      </p>
+      <p id="asof"></p>
+    </footer>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
