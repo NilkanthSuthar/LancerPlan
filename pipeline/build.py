@@ -25,6 +25,11 @@ FILE_URL = "https://www.uwindsor.ca/registrar/sites/uwindsor.ca.registrar/files/
 NAME_RE = re.compile(r"^(fall|winter|summer)_(\d{4})_(ugrd|grad|law)_timetable\.pdf$")
 LEVEL_ORDER = ["ugrd", "grad", "law"]
 SEASON_ORDER = {"winter": 0, "summer": 1, "fall": 2}
+MAX_TERMS = 3  # newest terms on the site; older PDFs stay in the repo but aren't published
+
+
+def term_key(season, year):
+    return int(year) * 10 + SEASON_ORDER[season]
 
 
 def merge_course(into, other, level):
@@ -105,8 +110,12 @@ def main(argv=None):
         print("no timetable PDFs in data/raw/")
         return 1
 
+    newest = sorted(terms, key=lambda t: -term_key(*t.split("-")))
+    for old in newest[MAX_TERMS:]:
+        print(f"{old}: older than the newest {MAX_TERMS} terms, not published")
     index, failed = [], False
-    for term_id, files in terms.items():
+    for term_id in newest[:MAX_TERMS]:
+        files = terms[term_id]
         try:
             term = build_term(term_id, files, sources)
         except ParseError as e:
@@ -123,7 +132,7 @@ def main(argv=None):
         season, year = term_id.split("-")
         index.append({"id": term_id, "label": term["label"], "generated": term["generated"],
                       "levels": [s["level"] for s in term["sources"]],
-                      "sort": int(year) * 10 + SEASON_ORDER[season]})
+                      "sort": term_key(season, year)})
         if not args.check:
             (OUT / f"{term_id}.json").write_text(json.dumps(term, separators=(",", ":")) + "\n")
 

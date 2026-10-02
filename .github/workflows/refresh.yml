@@ -1,0 +1,85 @@
+name: refresh timetable data
+
+# Daily: pull the current and upcoming timetable PDFs from the registrar page.
+# If any changed, validate them, commit them and redeploy. If the parser or
+# validation fails, nothing is committed, the site keeps the last good data and
+# this run fails (GitHub emails the repo owner).
+
+on:
+  schedule:
+    - cron: "23 9 * * *" # 09:23 UTC, early morning in Windsor
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: download current and upcoming timetables
+        run: python -m pipeline.fetch --current
+
+      - name: look for changes
+        id: diff
+        run: |
+          if [ -n "$(git status --porcelain data/raw)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git status --short data/raw
+          else
+            echo "no changes"
+          fi
+
+      - name: test and validate
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          python -m pytest -q pipeline
+          python -m pipeline.build --check
+
+      - name: set commit identity
+        run: |
+          git config user.name "Nilkanth Suthar"
+          git config user.email "83011152+NilkanthSuthar@users.noreply.github.com"
+
+      - name: commit new data
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git add data/raw
+          git commit -m "update timetable data"
+          git push
+
+      # pushes made with the workflow token don't trigger other workflows,
+      # so start the deploy explicitly
+      - name: deploy
+        if: steps.diff.outputs.changed == 'true'
+        run: gh workflow run deploy.yml --ref main
+
+      # GitHub pauses scheduled workflows after 60 days without repo activity.
+      # Re-enable through the API on every run, and if the repo has been quiet
+      # for 50 days, push an empty commit so the clock resets.
+      - name: keep the schedule alive
+        if: always()
+        run: |
+          gh api -X PUT "repos/${{ github.repository }}/actions/workflows/refresh.yml/enable"
+          last=$(git log -1 --format=%ct)
+          if [ $(( $(date +%s) - last )) -gt $(( 50 * 86400 )) ]; then
+            git commit --allow-empty -m "keep scheduled refresh running"
+            git push
+          fi

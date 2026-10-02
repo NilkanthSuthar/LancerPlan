@@ -71,16 +71,28 @@ npm test
 Parser tests use small fixtures cut from the real PDFs (`pipeline/tests/fixtures/`).
 To add one: `python -m pipeline.fixture <pdf> out.json <page>:<top>-<bottom>`.
 
-## Adding a new term
+## Keeping the data fresh
 
-1. `python -m pipeline.fetch` lists the timetable PDFs currently on the registrar page.
-2. `python -m pipeline.fetch winter_2027` downloads that term's undergrad, grad and law PDFs into `data/raw/` and records their URLs.
-   (Or download them yourself and drop them into `data/raw/` keeping the registrar's file names.)
-3. `npm run data` to check it parses and validates, then commit and push.
+Nothing to do by hand. `.github/workflows/refresh.yml` runs every morning:
 
-GitHub Actions runs the tests, rebuilds the data from the PDFs and deploys to
-GitHub Pages. Re-running step 2 picks up a newer copy of a PDF the registrar has
-updated.
+1. Downloads the current and upcoming terms' PDFs from the registrar page
+   (`python -m pipeline.fetch --current`). Files are only rewritten when their
+   bytes change.
+2. If something changed, runs the parser tests and validation, commits the new
+   PDFs to `data/raw/` and starts a deploy.
+3. If the parser or validation fails, nothing is committed and the site keeps
+   the last good data. The failed run triggers GitHub's usual email; that's the
+   only time anyone needs to look.
+
+New terms (e.g. Winter 2027) show up the day after the registrar posts them.
+The site shows the newest 3 terms; older PDFs stay in the repo. GitHub pauses
+scheduled workflows after 60 days without activity, so the same workflow
+re-enables itself every run and pushes an empty commit if the repo has been
+quiet for 50 days.
+
+To pull a term manually: `python -m pipeline.fetch winter_2027`, then
+`npm run data` to check it, then commit and push. To run the refresh now:
+Actions → refresh timetable data → Run workflow.
 
 ## Reporting a mistake
 
