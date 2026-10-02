@@ -125,6 +125,24 @@ describe('schedule generation', () => {
     const all = generate([A, B], { minGaps: false, full: 'allow' }).results;
     expect(compact.stats.gapMinutes).toBe(Math.min(...all.map((r) => r.stats.gapMinutes)));
   });
+  it('treats Full as a nudge: a compact day beats hours of gaps', () => {
+    const first = course('P', [['LEC', [sec('LEC1', [mt(['M'], 540, 600)])]]]);
+    const second = course('Q', [['LEC', [
+      sec('LEC1', [mt(['M'], 600, 660)], { full: true }), // right after P, but Full
+      sec('LEC2', [mt(['M'], 900, 960)]), // open, 4h gap
+    ]]]);
+    const top = generate([first, second], { minGaps: true, full: 'avoid' }).results[0];
+    expect(top.picks.Q.LEC).toBe('LEC1');
+  });
+  it('breaks ties in favour of fewer Full sections', () => {
+    const first = course('P', [['LEC', [sec('LEC1', [mt(['M'], 540, 600)])]]]);
+    const second = course('Q', [['LEC', [
+      sec('LEC1', [mt(['M'], 600, 660)], { full: true }),
+      sec('LEC2', [mt(['W'], 540, 600)]),
+    ]]]);
+    const { results } = generate([first, second], { minGaps: true, full: 'allow' });
+    expect(results.map((r) => r.picks.Q.LEC)).toEqual(['LEC2', 'LEC1']);
+  });
   it('can exclude Full sections and respects locked picks', () => {
     const solo = course('C', [['LEC', [sec('LEC1', [mt(['M'], 600, 680)], { full: true })]]]);
     const r = generate([solo], { full: 'exclude' });

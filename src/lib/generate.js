@@ -19,7 +19,10 @@ export const DEFAULT_PREFS = {
   full: 'avoid', // 'allow' | 'avoid' | 'exclude'
 };
 
-const W = { early: 2, late: 2, dayOff: 400, day: 150, gap: 1, full: 300 };
+// Penalty points; one point is roughly one minute of gap. "Full" is a snapshot
+// from when the PDF was made and seats open up, so it only nudges the ranking
+// (a full section ~ 45 minutes of gaps a week) and breaks ties.
+const W = { early: 2, late: 2, dayOff: 400, day: 150, gap: 1, full: 45 };
 const GAP_GRACE = 10; // minutes between classes that don't count as a gap
 
 function compile(section) {
@@ -178,10 +181,12 @@ export function generate(courses, prefs = DEFAULT_PREFS, opts = {}) {
   let found = 0;
   let capped = false;
 
+  // lower score first; on a tie, fewer full sections, then fewer gap minutes
+  const worse = (a, b) => a.score - b.score || a.stats.full - b.stats.full || a.stats.gapMinutes - b.stats.gapMinutes;
   const keep = (scored) => {
-    if (best.length === maxResults && scored.score >= best[best.length - 1].score) return;
+    if (best.length === maxResults && worse(scored, best[best.length - 1]) >= 0) return;
     let i = best.length;
-    while (i > 0 && best[i - 1].score > scored.score) i--;
+    while (i > 0 && worse(best[i - 1], scored) > 0) i--;
     best.splice(i, 0, scored);
     if (best.length > maxResults) best.pop();
   };

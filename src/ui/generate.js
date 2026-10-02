@@ -44,7 +44,7 @@ export function renderGenerate(view, app) {
       timeSelect(END_OPTS, p.latest, 'done by', 'latest'),
       h('label', { class: 'field' }, 'full sections',
         h('select', { class: 'plain', onchange: (e) => { app.setPrefs({ full: e.target.value }); run(); } },
-          [['avoid', 'Avoid'], ['allow', 'Don’t mind'], ['exclude', 'Leave out']]
+          [['avoid', 'Avoid if possible'], ['allow', 'Don’t mind'], ['exclude', 'Leave out']]
             .map(([v, t]) => h('option', { value: v, selected: p.full === v }, t))))),
     h('div', { class: 'field' }, 'days off', days),
     h('div', { class: 'checks' },
